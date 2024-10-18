@@ -2,6 +2,7 @@ package org.example;
 
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.specialized.BlobClientBase;
 
 public class Main {
 
@@ -12,10 +13,8 @@ public class Main {
                 .connectionString(System.getenv("AZURE_BLOB_CONNECTION_STRING"))
                 .buildClient();
 
-        System.out.println(blobServiceClient.getProperties());
-//
-//        for (BlobContainerItem item : blobServiceClient.listBlobContainers()) {
-//            System.out.println(item.getName());
-//        }
+        BlobClientBase blobClientBase = blobServiceClient.getBlobContainerClient("test").getBlobClient("test");
+
+        blobClientBase.exists();
     }
 }
